@@ -1,5 +1,26 @@
 # Apuntes del Curso
 ## Clase 1 
+Git es un Sistema de Control de versiones distribuido, distribuido ya que todos los miembros del equipo tendrán una copia del proyecto, es decir que la persistencia del proyecto no depende de un servidor central que si falla se pierde todo, sino de muchas personas. 
+El creador de git es Linus Torvalds, el mismo que creó Linux, porque ningún sistema de control de versiones en su momento le convencieron, así que decidió crear el suyo.
+### Instalación
+#### Linux: 
+Para instalar git en linux es tan simple como colocar en la terminal:
+_sudo apt install git_ 
+y muchas distros de linux ya traen git incluso, a veces solo es necesario actualizarlo
+
+#### Windows:
+Se busca Git en nuestro navegador de preferencia, se va a la pestaña de git install, damos click y esperamos a que se instale un instalador. Una vez descargado, lo ejecutamos con doble click, normalmente se le da a todo next, hasta la parte en la que nos ofrece como nombre predeterminado de la rama principal master, cambiamos a la otra opción y escribimos main. La siguiente opción luego de esa es para poder usar git en múltiples terminales y no solo en bash.
+Windows maneja los saltos de línea de manera diferente a Linux y Mac, entonces hay que elegir una opción la cual soluciona esto porque sino, no se podrá trabajar en multiplataforma. Luego se da Next hasta que descargue.
+
+### Configuraciones Básicas
+Para usar git necesitamos modificar nuestro archivo config, necesitamos colocar un nombre y correo globales para que git sepa identificar quién realizó cambios y los commiteó. Esto se hace abriendo una terminal y escribiendo:
+_git config --global user.name "nombre de la persona"_
+_git config --global user.email "correo@gmail.com"_
+Es importante que el correo sea el mismo con el cuál nos registremos en github para que no existan errores inesperados.
+
+### Preguntas de Examen:
+* Quién fue el creador de GIT?
+
 ## Clase 2
 ## Clase 3
 ## Clase 4 
