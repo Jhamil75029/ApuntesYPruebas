@@ -1,5 +1,6 @@
 # Apuntes del Curso
-## Clase 1 
+Hecho por Jhamil Arnez Hidalgo
+## Clase 1 - Introducción
 Git es un Sistema de Control de versiones distribuido, distribuido ya que todos los miembros del equipo tendrán una copia del proyecto, es decir que la persistencia del proyecto no depende de un servidor central que si falla se pierde todo, sino de muchas personas. 
 El creador de git es Linus Torvalds, el mismo que creó Linux, porque ningún sistema de control de versiones en su momento le convencieron, así que decidió crear el suyo.
 ### Instalación
@@ -21,7 +22,42 @@ Es importante que el correo sea el mismo con el cuál nos registremos en github 
 ### Preguntas de Examen:
 * Quién fue el creador de GIT?
 
-## Clase 2
+## Clase 2 - States y Commits
+Primero se realiza un git init para iniciar el monitoreo de git a la carpeta.
+### States
+Tenemos 3 estados de git que son:
+* Modified: Has hecho alguna modificación que git notó ya sea que creaste un nuevo archivo o cambiaste algo de un archivo existente, en un git status te saldrá de color rojo los archivos que has modificado.
+* Prepared: Hemos hecho un git add archivo, y añadimos este cambio al área de preparación, en esta área está todo lo que va a entrar al siguiente commit.
+* Confirmado: Se hizo un git commit y se guardaron los cambios, en un git status no saldrá nada, si volvemos a cambiar o agregar algo se repite el ciclo volviendo a modified.
+
+Git cataloga nuestros archivos como Modified si tiene una versión anterior de este archivo, o Untracked si no tiene una versión antigua del archivo, es decir un archivo recién creado.
+
+### Comandos Comunes
+* git status: nos muestra los states de todos los archivos del directorio
+* git add archivo o git add .: Pasa los archivos de modified a state, y con un punto, añadimos todos los archivos al área de prepared.
+* git restore --staged archivo: Quita el archivo del área staged o prepared, vuelve a modified.
+* git restore archivo: Descarta y elimina físicamente el cambio que se hizo a un archivo.
+* git log: Nos muestra el historial de los commits que hicimos y sus hashes.
+* git reset: Hace que el HEAD retroceda un punto al anterior commit, todos los archivos vuelven a su estado anterior. Usar con precaución.
+* git commit: Es el comando estrella y la razón de ser de git, este crea un commit, el cual es un punto de guardado, es como tomar una foto de todo tu código, así como una foto congela el tiempo en una imagen y puedes ver el pasado, el commit saca una foto de todo el código.
+
+### Buenas Prácticas
+* Commit Atómico: Hacer commits cada que hagamos algo pequeño que añada o altere algo. Y no cuando terminos una tarea grande y compleja. O luego de varios cambios.
+* Buenos Nombres de commits: En inglés, verbos imperativos, y tienen que explicar claramente qué cambios o añadidos trajo el commit. Son muchas cosas para tomar en cuenta así que dejo el enlace de una página que me ayudó mucho por su simpleza  en explicar esto" https://midu.dev/buenas-practicas-escribir-commits-git/
+* Si el commit incluye muchos cambios que no se pueden commitear por separado por x razón, se puede escribir un commit largo colocando un título general y abajo especificando los cambios, el ejemplo que el auxi dio en clases:
+_feat: Add math operations_
+_- Add sum fuction_
+_- Add mult function_
+Esto solo en casos excepcionales, es mala práctica hacer commits largos.
+
+### Preguntas de Examen:
+* Qué hace --staged?
+
+### Git Ignore
+Podemos crear un archivo llamado .gitignore, en el cual con nano podamos escribir adentro en cada línea, el nombre de algún archivo que querramos que git no tome en cuenta para hacer los commits. El .gitignore también se agrega a los commits.
+
+
+
 ## Clase 3
 ## Clase 4 
 
