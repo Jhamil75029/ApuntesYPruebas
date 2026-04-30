@@ -123,3 +123,42 @@ Las ramas más comunes en un proyecto son:
 * feature: Esta rama dura poco, se usa para desarrollar funciones o características en específico, nacen de develop y se fusionan a develop.
 * hotfix: Esta rama igual dura poco, se usa para corregir bugs o errores menores que ya están en main, y que no pueden esperar a una próxima actualización, nacen del main y se fusionan en el main también.
 * release: Esta rama se usa para preparar una nueva versión de código estable, es decir una nueva versión de main, nace en develop y se fusiona tanto en main como en develop de nuevo.
+
+## Clase 6 - Flujo de Trabajo
+Hoy vimos una práctica de como realizar Pull Request, como mandarlos y como aprobarlos. Estos evitan conflictos, ya que para estos se crean ramas para realizar cambios, sin afectar a la principal, luego de hacer todos los cambios se solicita que se apliquen y si los colaboradores aprueban estos cambios, se hace. 
+
+Sino hacemos pull request, es decir sino creamos una rama para hacer los cambios, sino que subimos directo a la principal, tendremos que resolver conflictos.
+
+El flujo para realizar un pull request es el siguiente:
+#### 1. Actualizamos nuestro repo local
+Nos dirigimos a la rama principal en la que querramos hacer cambios y traemos todo el estado actual del código para no generar conflictos, con:
+_git checkout develop(rama a cambiar)_
+_git pull origin (rama)_
+#### 2. Creamos una nueva rama
+En esta rama vivirán los cambios que hagamos al código, la hacemos con:
+_git checkout -b(si la estamos creando) nombre-de-rama_
+#### 3. Hacemos todos los cambios en la rama
+#### 4. Preparamos los cambios
+Como ya sabemos, git add ., y git commit, con un nombre significativo que represente los cambios que hicimos.
+#### 5. Subimos la rama a github
+Una vez commiteado, lo subimos al repo con:
+_git push origin nombre-de-rama_
+#### 6. Abrimos github y solicitamos pull request
+Abrimos github, usualmente debería detectar que se acaba de crear una nueva rama y que agrega algunas cosas a la rama principal, entonces deberíá salir automáticamente un botón verde que diga "Compare & Pull Request".
+Sino aparece este botón nos dirigimos a la pestaña "Pull Request" y le damos al botón "New Pull Request", y seleccionamos nuestra rama, y la rama con la que la queremos comparar, que es la principal.
+Escribimos un título y una pequeñá descripción para los cambios que hicimos, el problema que resolvimos y todos los datos relevantes de nuestros cambios.
+Finalmente le damos al botón "Create Pull Request"
+#### 7. Revisión y Merge
+Una vez hecho esto los colaboradores verán la pull request y podrán ver las líneas que estás agregando y cambiando, y podrán aceptar la pull request, exigir que hagamos cambios antes de mergearlas, o abstenerse de votar a favor o en contra, dependiendo de las reglas que se coloque en el repositorio se podrá mergear si la mayoría vota que sí, como también solo se podrá mergear si todos votan que sí y demás configuraciones.
+
+Una vez aprobado el pull request el owner del repo o nosotros, podremos hacerle merge a la rama principal.
+
+### Comandos Usados:
+* git fetch: Revisa si hay cambios en el repositorio al que estamos conectados.
+* git pull: Trae (Si es que hay) todos los cambios hechos en el repositorio al que estamos conectados, es decir en el origin.
+
+### Apuntes diversos:
+* Para subir una carpeta vacía en un commit debemos crear en esa carpeta un archivo llamado ".gitkeep". 
+
+### Para el Examen:
+El Auxi recomienda estudiar las diapos y los comandos más usados.
