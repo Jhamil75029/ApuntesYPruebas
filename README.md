@@ -22,8 +22,10 @@ Es importante que el correo sea el mismo con el cuál nos registremos en github 
 ### Preguntas de Examen:
 * Quién fue el creador de GIT?
 
+
 ## Clase 2 - States y Commits
 Primero se realiza un git init para iniciar el monitoreo de git a la carpeta.
+
 ### States
 Tenemos 3 estados de git que son:
 * Modified: Has hecho alguna modificación que git notó ya sea que creaste un nuevo archivo o cambiaste algo de un archivo existente, en un git status te saldrá de color rojo los archivos que has modificado.
@@ -50,15 +52,54 @@ _- Add sum fuction_
 _- Add mult function_
 Esto solo en casos excepcionales, es mala práctica hacer commits largos.
 
-### Preguntas de Examen:
-* Qué hace --staged?
-
 ### Git Ignore
 Podemos crear un archivo llamado .gitignore, en el cual con nano podamos escribir adentro en cada línea, el nombre de algún archivo que querramos que git no tome en cuenta para hacer los commits. El .gitignore también se agrega a los commits.
 
+### Preguntas de Examen:
+* Qué hace --staged?
 
 
-## Clase 3
+## Clase 3 - GitHub
+Github con la cuenta institucional da muchos beneficios, el gran pero, es que al final de la carrera es probable que nos la quiten, sin embargo parece existir formas de vincular y no perder nuestro progreso.
+
+### GitHub
+Es lo que nos permite trabajar en equipo, no es lo mismo que git, GitHub es una plataforma en línea para subir nuestros proyectos y colaborar con otros.
+Nos podemos conectar con github mediante http, pero siempre nos pedirá contraseña y es molesto, así que es mejor por este aspecto conectarse por ssh a git, para eso hay que preparar nuestro ssh en nuestra compu.
+
+### SSH
+Si estamos en linux, desde la terminal, y si estamos en windows, abrimos git-bash que es una terminal en bash y ejecutamos lo siguiente:
+_ssh keygen -t ed25519 -C "nuestrocorreo@email.com"_
+Esto genera un key de ssh, nos va a indicar donde se guardó, así que vamos y revisamos con cat la llave pública que creo (el .pub), y copiamos.
+
+Con esa llave nos dirigimos a github, a settings, a donde dice SSH y algo más, y presionamos el botón de Add New ssh key. Le damos un título significativo, pegamos ahí la key, y volvemos a la terminal para ver si todo está en orden con este comando:
+_ssh -T git@github.com_
+Nos debería un salir un mensaje saludandonos si todo fue exitoso.
+
+Dato Curioso: Se puede crear más de una llave en ssh, pero no es recomendable en la misma compu.
+
+### HTTPS
+Si usamos esto para intentar hacer commits, nos va a pedir siempre nombre de usuario y contraseña, y aunque coloquemos nuestra contraseña bien no nos va a dejar.
+Esto pasa porque desde 2021, GitHub ya no acepta contraseñas normales para la terminal. Deberemos usar un Personal Access Token (PAT) en lugar de nuestra contraseña.
+
+### Conectando nuestro repo local a GitHub
+Se hace con los siguientes comandos:
+_git remote add origin git@github.com:User/Repo.git_
+Con esto guardamos una dirección de repositorio, y se la asignamos a la palabra origin para hacerlo simple.
+
+### Comandos de Hoy
+* git clone git@github...(dirección del repo con ssh): Este comando se ejecuta en la carpeta en la que se quiere bajar todo el proyecto de github hacia tu máquina, lo clona.
+* git commit --ammend -m "mensaje": Cambia el nombre del último commit por el mensaje que colocamos, también cambia su hash.
+
+### Apuntes diversos:
+* Para ver los beneficios hay que buscar GitHub Student Developer Pack, dan un dominio gratis.
+* El tamaño máximo de un commit es 100 megas
+* El repositorio en github tiene un límite de 10Gb más o menos
+* Si creamos un repositorio con nuestro nombre de usuario podremos usarlo como README de nuestro perfil, y con esto podemos crear una pequeña presentación o portafolio. Hacer esto vale 5 puntos de nota. En inglés 6 puntos, y tenemos permitido "inflarlo". 10pts si nos contrata una empresa.
+
+### Preguntas de Examen:
+* Comando para generar la llave ssh: ssh keygen -t ed25519 -C "nuestrocorreo@email.com"
+
+
 ## Clase 4 
 
 ### Git CheckOut
