@@ -100,7 +100,71 @@ Con esto guardamos una dirección de repositorio, y se la asignamos a la palabra
 * Comando para generar la llave ssh: ssh keygen -t ed25519 -C "nuestrocorreo@email.com"
 
 
-## Clase 4 
+## Clase 4 SSH Múltiple y Git Checkout
+
+### Git Remote
+Es el comando que nos permite gestionar nuestras conexiones con repositorios remotos, dice de donde traer, y a donde mandar.
+* git remote -v : Nos muestra las url exacta a las que apunta nuestro repositorio local.
+* git remote add <apodo> "url" : Vincula nuestro repo local a uno en la nube.
+* git remote set-url <apodo> "url" : Cambia la url donde apunta nuestro repo.
+
+### Múltiples SSH
+Si por alguna razón tenemos multicuentas tendremos que tomar en cuenta lo siguiente:
+Cada "cuenta" debe tener llaves ssh diferentes, no podemos usar la misma llave ssh ya que tiende a errores, y tampoco es seguro así que:
+#### 1. Generamos otra llave ssh
+Ejecutamos:
+_ssh keygen -t ed25519 -C "correosecundario@email.com" -f ~/.ssh/id-secundario_
+El detalle es agregar la banderilla -f al final, ya que esta le dice donde crear y con qué nombre crear la llave, sino hacemos esto se sobreescribiría la llave que ya tenemos.
+#### 2. Creamos un archivo config en la carpeta .ssh
+Y por cada cuenta tenemos que colocar y cambiar este bloque de texto de configuraciones:
+_Host github.com_
+_HostName github.com_
+_User git_
+_IdentityFile ~/.ssh/id-secundario_
+**Qué significan?**
+* Host: Es el apodo o alias que le pones a la conexión. Es lo que escribes en la terminal después de git@.
+    Dato extra: Podrías ponerle cualquier apodo. Si le pusieras Host mi-github, tendrías que clonar repositorios escribiendo git clone git@mi-github:usuario/repo.git. Dejarlo como github.com es lo más cómodo porque te permite usar los comandos de Git normales y copiar las URLs tal cual te las da la página. Para las conexiones SSH tanto en GitHub como en GitLab, el usuario siempre es literalmente la palabra git.
+* HostName: Es la dirección real del servidor a donde nos conectamos. Aquí entra gitlab.com o github.com, o cualquier otra plataforma que usemos.
+* User: Es el nombre de usuario del sistema remoto. Para GitHub, siempre, siempre es git. Para las conexiones SSH tanto en GitHub como en GitLab, el usuario siempre es literalmente la palabra git.
+    Dato extra: No debes poner tu nombre de usuario de la plataforma (no pongas "juanperez", ni tu correo). La plataforma (GitHub/GitLab) sabrá quién eres tú basándose en la llave secreta que le vas a mostrar en el siguiente paso.
+* IdentityFile: Es la ruta exacta hacia la "escalera" (la llave privada) que quieres usar para ese Host específico. Esta es la parte más importante. Le dice a tu computadora: "Cuando vayas a esta dirección, usa esta llave en específico para identificarte, y no ninguna de las otras que tengas guardadas". Es lo que evita que tu llave del trabajo se mezcle con tu llave personal.
+
+**En resumen: ¿Qué pasa cuando haces git push o git pull?**
+Cuando escribes un comando en tu terminal, SSH lee ese bloque de texto y hace lo siguiente automáticamente en milisegundos:
+
+"Veo que quieres ir a github.com (Host). Perfecto, me dirigiré a la dirección de internet github.com (HostName). Tocaré la puerta diciendo que soy el usuario git (User) y cuando me pidan mi identificación, les mostraré la llave que está guardada en ~/.ssh/id_ed25519_github (IdentityFile)."
+
+Un ejemplo más claro suponiendo que tenemos una cuenta para github y otra para gitlab:
+#Cuenta de GitHub
+Host github.com
+  HostName github.com
+  User git
+  IdentityFile ~/.ssh/id_ed25519_github
+
+#Cuenta de GitLab
+Host gitlab.com
+  HostName gitlab.com
+  User git
+  IdentityFile ~/.ssh/id_ed25519_gitlab
+
+#### 3. Configurando SIN --Global
+Al configurar git al inicio siempre se nos dice definir nuestro nombre y email con la flag --global, esto le dice a toda la computadora que cada que cree un repositorio de git, se use ese email y ese nombre. Sin embargo ya que estaremos usando dos o más cuentas, por repositorio debemos después de clonarlo o crearlo ejecutar los siguientes comandos para asignarle un nombre y email a cada repositorio individualmente, dependiendo de que cuenta o plataforma querramos usar.
+##### Para GitHub
+git config user.name "Tu Nombre en GitHub"
+git config user.email "tu_correo_github@email.com"
+##### Para GitLab
+git config user.name "Tu Nombre en GitLab"
+git config user.email "tu_correo_gitlab@email.com"
+
+Notemos que ninguno lleva flag --global. Estos se ejecutan luego de un git clone, o de un git init, para configurar el repositorio local. Git pone por encima estos al global, si es que existen, entonces no hay ningún problema en dejar el global como lo hayamos dejado.
+
+Y claramente luego de crear la llave ssh, hay que conectarlo en la plataforma que toque conectarla.
+
+#### Fuentes:
+Como se puede apreciar me ayude de Gemini para complementar estos apuntes porque particularmente me será muy útil, el Los prompt fueron:
+_Que se debe hacer para tener en mi git 2 o más cuentas? digamos que una es para subir cosas a github y otra es para gitlab_
+Y luego:
+_en el paso 4, explicame por fa que son cata una de esas líneas y que se pone y por que_
 
 ### Git CheckOut
 Nos permite cambiar la ubicación de nuestro puntero HEAD a otro commit, es decir podemos volver a otros commits, a esos puntos de guardado.
@@ -108,10 +172,11 @@ Cuando nos encontramos en el último commit de una rama, es igual a decir que es
 Cuando volvemos en el tiempo NO estamos apuntando a la rama, sino a un punto en el tiempo, eso significa Detached Head.
 
 Si commiteamos estando en detached head se nos advertirá que ese commit quedará al aire ya que no puedes cambiar el pasado, no se puede cambiar un commit ya hecho, así que no es recomendado hacer esto. La solución es crear una rama y guardar ahí los cambios, ya que si quieres cambiar algo en el pasado, probablemente amerite crear una nueva rama. (No entrará en el examen tanto el checkout)
+
 ### Preguntas de Examen:
 * Cuál es la diferencia en usar --Global y no usar?
 
-## Clase 5
+## Clase 5 Ramas
 
 ### Ramas
 Las ramas branches, existen, para trabajar de mejor manera, en específico para no afectar código que sí funciona o código que no queremos tocar. Por dar un ejemplo, es similar a escribir apuntes a la quete en un cuaderno, y luego de apuntar todo, pasarlo a limpio a otro cuaderno, sería similar a tener 2 ramas, una con código listo para deployar, limpio, normalmente en la rama Main, y otra rama donde se va experimentando normalmente se llama Develop.
@@ -124,7 +189,7 @@ Las ramas más comunes en un proyecto son:
 * hotfix: Esta rama igual dura poco, se usa para corregir bugs o errores menores que ya están en main, y que no pueden esperar a una próxima actualización, nacen del main y se fusionan en el main también.
 * release: Esta rama se usa para preparar una nueva versión de código estable, es decir una nueva versión de main, nace en develop y se fusiona tanto en main como en develop de nuevo.
 
-## Clase 6 - Flujo de Trabajo
+## Clase 6 Flujo de Trabajo
 Hoy vimos una práctica de como realizar Pull Request, como mandarlos y como aprobarlos. Estos evitan conflictos, ya que para estos se crean ramas para realizar cambios, sin afectar a la principal, luego de hacer todos los cambios se solicita que se apliquen y si los colaboradores aprueban estos cambios, se hace. 
 
 Sino hacemos pull request, es decir sino creamos una rama para hacer los cambios, sino que subimos directo a la principal, tendremos que resolver conflictos.
@@ -162,3 +227,5 @@ Una vez aprobado el pull request el owner del repo o nosotros, podremos hacerle 
 
 ### Para el Examen:
 El Auxi recomienda estudiar las diapos y los comandos más usados.
+
+## Clase 7 Final Commit 
