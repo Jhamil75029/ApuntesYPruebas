@@ -117,10 +117,12 @@ _ssh keygen -t ed25519 -C "correosecundario@email.com" -f ~/.ssh/id-secundario_
 El detalle es agregar la banderilla -f al final, ya que esta le dice donde crear y con qué nombre crear la llave, sino hacemos esto se sobreescribiría la llave que ya tenemos.
 #### 2. Creamos un archivo config en la carpeta .ssh
 Y por cada cuenta tenemos que colocar y cambiar este bloque de texto de configuraciones:
-_Host github.com_
-_HostName github.com_
-_User git_
-_IdentityFile ~/.ssh/id-secundario_
+```text
+Host github.com
+HostName github.com
+User git
+IdentityFile ~/.ssh/id-secundario
+```
 **Qué significan?**
 * Host: Es el apodo o alias que le pones a la conexión. Es lo que escribes en la terminal después de git@.
     Dato extra: Podrías ponerle cualquier apodo. Si le pusieras Host mi-github, tendrías que clonar repositorios escribiendo git clone git@mi-github:usuario/repo.git. Dejarlo como github.com es lo más cómodo porque te permite usar los comandos de Git normales y copiar las URLs tal cual te las da la página. Para las conexiones SSH tanto en GitHub como en GitLab, el usuario siempre es literalmente la palabra git.
