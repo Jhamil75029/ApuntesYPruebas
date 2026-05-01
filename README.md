@@ -137,6 +137,7 @@ Cuando escribes un comando en tu terminal, SSH lee ese bloque de texto y hace lo
 "Veo que quieres ir a github.com (Host). Perfecto, me dirigiré a la dirección de internet github.com (HostName). Tocaré la puerta diciendo que soy el usuario git (User) y cuando me pidan mi identificación, les mostraré la llave que está guardada en ~/.ssh/id_ed25519_github (IdentityFile)."
 
 Un ejemplo más claro suponiendo que tenemos una cuenta para github y otra para gitlab:
+```text
 #Cuenta de GitHub
 Host github.com
   HostName github.com
@@ -148,7 +149,7 @@ Host gitlab.com
   HostName gitlab.com
   User git
   IdentityFile ~/.ssh/id_ed25519_gitlab
-
+```
 #### 3. Configurando SIN --Global
 Al configurar git al inicio siempre se nos dice definir nuestro nombre y email con la flag --global, esto le dice a toda la computadora que cada que cree un repositorio de git, se use ese email y ese nombre. Sin embargo ya que estaremos usando dos o más cuentas, por repositorio debemos después de clonarlo o crearlo ejecutar los siguientes comandos para asignarle un nombre y email a cada repositorio individualmente, dependiendo de que cuenta o plataforma querramos usar.
 ##### Para GitHub
