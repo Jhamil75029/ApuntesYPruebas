@@ -229,3 +229,23 @@ Una vez aprobado el pull request el owner del repo o nosotros, podremos hacerle 
 El Auxi recomienda estudiar las diapos y los comandos más usados.
 
 ## Clase 7 Final Commit 
+En esta clase seguimos avanzando Pull Requests.
+* Si el repo está bien configurado hasta el admin pierde poderes.
+* Cuando 2 personas o más hacen un pull requests para una misma línea libre, a todas les saldrá que se puede mergear, pero luego de que a una se le acepte el merge, automáticamente a las demás les aparecerá como conflicto.
+* VSCode tiene una interfaz específica para resolver conflictos. Si aceptamos ambos vscode los fusiona, si aceptamos solo uno, mantiene ese y ya. 
+* Por buena práctica una vez que se mergea una rama a la principal, hay que borrar esa rama.
+
+### Comandos Usados:
+* git stash -m "mensaje": Guarda cambios sin hacer commits, por si necesitamos alguna vez. Oculta los cambios y el git status no los detecta. El flag -m es para añadir un mensaje y es opcional.
+* git stash list: muestra los cambios guardados por stash.
+* git stash pop: Trae de vuelta todos los cambios. Los revela para el git status.
+* git diff: Muesta los cambios que no hemos agregado con git add al área de preparado.
+* git diff .: Muestra el diff de todos los archivos.
+* git diff archivo: Especifica de que archivo queremos ver diferencias.
+* git diff --staged: Muestra los cambios que ya están en el área de preparado, los que les hicimos git add, y los compara con la versión más reciente del proyecto.
+* git diff --staged archivo: Muestra lo mismo que el --staged pero solo de un archivo en específico.
+* git diff rama1 rama2: Compara 2 ramas, con esto podemos ver si se pueden mergear o no.
+
+
+### Preguntas de Examen:
+* Estructura de un commit largo
